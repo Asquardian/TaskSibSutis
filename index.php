@@ -15,9 +15,16 @@
             <img src="/TaskSibSutis/img/sibs.jpg" style="height: 20%; margin: 5%">
             <?php 
             if(isset($_GET['Error'])){
-            $temp = $_GET['Error'];
-            echo '<p class="Error">Ошибка! Введите все данные!</p>';
-        }
+                $temp = $_GET['Error'];
+                switch($temp){
+                    case 0:
+                        echo '<p class="Error">Ошибка! Введите все данные!</p>';
+                        break;
+                    case 1:
+                        echo '<p class="Error">Ошибка! Неверные данные о количестве!</p>';
+                        break;
+                }
+            }
         ?>
         </div>
         <form action="sending.php" method="POST">
