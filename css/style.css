@@ -1,20 +1,5 @@
-form.FormStyle {
-    display: table;
-}
-
-div.InputField {
-    display: table-row;
-}
 
 .Error{
     color: #992121;
-}
-
-label, input {
-    display: table-cell;
-    margin-bottom: 10px;
-}
-
-label {
-    padding-right: 10px;
+    text-align: center;
 }

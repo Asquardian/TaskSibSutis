@@ -17,7 +17,7 @@
                     Error();
                 }
             }
-            echo "Ваше Имя $arrayState[0], группа $arrayState[1], количество $arrayState[2] с $arrayState[3]";
+            echo "Ваше Имя $arrayState[0], группа $arrayState[1], количество $arrayState[2] со $arrayState[3]";
         }
         else {
             Error();
