@@ -22,6 +22,12 @@
         <div class="InputField">
             <label>Количество:</label><input name="amount" type="number"></input>
         </div>
+        <div class="InputField">
+            <label>Вид справки:</label><select name="kindOf">
+                <option>Справка об обучении</option>
+                <option>Справка о болезни</option>
+            </select></input>
+        </div>
         <button>Отправить заявку</button>
     </form>
 </body>
