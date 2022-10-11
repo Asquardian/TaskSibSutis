@@ -9,10 +9,10 @@
 </head>
 
 <body>
-    <div class="border border-info rounded container"
+    <div class="border border-info container divBorder"
         style="width: 50%;margin-top:2%; padding-left: 10%; padding-right: 10%;">
-        <div class="Error">
-            <img src="/TaskSibSutis/img/sibs.jpg" style="height: 20%; margin: 5%">
+        <div class="error center">
+        <img src="/TaskSibSutis/img/sibs.jpg" class="sibsutisLogo">
             <?php 
             if(isset($_GET['Error'])){
                 $temp = $_GET['Error'];
@@ -43,12 +43,13 @@
             <div class="row mb-5">
                 <label class="col-lg-3  ">Вид справки:</label>
                 <div class="col-lg-9"><select class="form-control" name="kindOf">
-                        <option>Справка об обучении</option>
-                        <option>Справка о болезни</option>
+                        <option>об обучении</option>
+                        <option>о болезни</option>
                     </select></div>
             </div>
-            <div class="btnCenter">
-            <button class="btn btn-primary">Отправить заявку</button></div>
+            <div class="center">
+                <button class="btn btn-primary">Отправить заявку</button>
+            </div>
         </form>
 
     </div>

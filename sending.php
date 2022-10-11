@@ -1,12 +1,25 @@
 <html>
+<link href="/TaskSibSutis/css/style.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <?php function Error($error){
             header("Location: http://localhost/TaskSibSutis/index.php?Error=" . $error);
             exit();
-} ?>
+        } 
+        require 'vendor/autoload.php';
+        ?>
+<style>
+p,
+h1 {
+    font-family: "Times New Roman", Times, serif;
+}
+</style>
 
 <body>
-    <p>
-        <?php 
+    <?php 
         try {
             if(isset($_POST["nameOfStudent"]) && isset($_POST["group"]) &&
              isset($_POST["amount"])){
@@ -29,8 +42,20 @@
             Error($stringError);
         }
 
- ?>
-    </p>
+    ?>
+    <div class="border border-info container divBorder">
+        <div>
+            <img src="/TaskSibSutis/img/sibs.jpg" class="sibsutisLogo">
+        </div>
+        <h1 class="center">Заявление</h1><br></br>
+        <p class="center">Я, студент группы <?php echo "$arrayState[1] $arrayState[0]";?>, подал завяление на получение
+            справки
+            <?php echo "$arrayState[3]";?> в количестве <?php echo "$arrayState[2]";?>.<br></br><br></br></p>
+        <p class="signature">Подпись студента ________________<br><br>Печать ________________</p><br></br>
+    </div>
+    <div class="center btnMargin">
+        <button class="btn btn-primary">Скачать и записаться</button>
+    </div>
 </body>
 
 </html>

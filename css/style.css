@@ -1,9 +1,30 @@
 
-.Error{
+.error{
     color: #992121;
     text-align: center;
 }
 
-.btnCenter{
+.signature{
+    text-align: right;
+}
+
+.divBorder{
+    width: 50%;
+    margin-top:2%; 
+    padding-left: 10%; 
+    padding-right: 10%;
+}
+
+.sibsutisLogo{
+    height: 20%; 
+    margin: 5%;
+}
+
+.btnMargin{
+    margin-top:5%; 
+    margin-bottom:5%; 
+}
+
+.center{
     text-align: center;
 }
