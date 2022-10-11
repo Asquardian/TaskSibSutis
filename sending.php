@@ -1,6 +1,6 @@
 <html>
 <?php function Error(){
-            header("Location: http://localhost/TaskSibSutis/index.php?Error=true");
+            header("Location: http://localhost/TaskSibSutis/index.php?Error=1");
             exit();
 } ?>
 <body>

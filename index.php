@@ -7,13 +7,11 @@
 
 <body>
     <?php 
-    $temp = false;
-    if(isset($_GET['Error'])){
-        $temp = $_GET['Error'];
-    }
-    if($temp == true){
-        echo '<p class="Error">Ошибка!</p>';
-    }?>
+        if(isset($_GET['Error'])){
+            $temp = $_GET['Error'];
+            echo '<p class="Error">Ошибка! Введите все данные!</p>';
+        }
+    ?>
     <form class="FormStyle" action="sending.php" method="POST">
         <div class="InputField">
             <label>ФИО:</label><input name="nameOfStudent" type="text"></input>
