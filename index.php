@@ -40,7 +40,8 @@
                         <option>Справка о болезни</option>
                     </select></div>
             </div>
-            <button class="btn btn-primary">Отправить заявку</button>
+            <div class="btnCenter">
+            <button class="btn btn-primary">Отправить заявку</button></div>
         </form>
 
     </div>
