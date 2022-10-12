@@ -23,6 +23,8 @@
                     throw new Exception("1");
                 }
             }
+            require_once('DBconnection/connect.php');
+            requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3]);
         }
         catch(Exception $e){
             $stringError = $e->getMessage();
