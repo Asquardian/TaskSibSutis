@@ -9,7 +9,6 @@
             header("Location: http://localhost/TaskSibSutis/index.php?Error=" . $error);
             exit();
         } 
-        require 'vendor/autoload.php';
         ?>
 <style>
 p,
@@ -29,15 +28,19 @@ h1 {
                 $arrayState[3] = $_POST["kindOf"];
                 foreach($arrayState as $elem){
                     if ($elem == ""){
-                        throw new Exception("0");
+                        throw new Exception("0"); ##Обработка ошибок
                     }
                 }
                 if($arrayState[2] > 5 || $arrayState[2] < 1){
                     throw new Exception("1");
                 }
+                require_once('DBconnection/connect.php');
+                requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3]);
+                session_start();
+                $_SESSION["array"] = $arrayState;
             }
-            require_once('DBconnection/connect.php');
-            requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3]);
+            else
+                throw new Exception("0");
         }
         catch(Exception $e){
             $stringError = $e->getMessage();
@@ -55,9 +58,11 @@ h1 {
             <?php echo "$arrayState[3]";?> в количестве <?php echo "$arrayState[2]";?>.<br></br><br></br></p>
         <p class="signature">Подпись студента ________________<br><br>Печать ________________</p><br></br>
     </div>
-    <div class="center btnMargin">
-        <button class="btn btn-primary">Скачать и записаться</button>
-    </div>
+    <form action="wordImport.php">
+        <div class="center btnMargin">
+            <button class="btn btn-primary">Скачать</button>
+        </div>
+    </form>
 </body>
 
 </html>
