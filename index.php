@@ -43,9 +43,21 @@
             <div class="row mb-5">
                 <label class="col-lg-3  ">Вид справки:</label>
                 <div class="col-lg-9"><select class="form-control" name="kindOf">
-                        <option>об обучении</option>
-                        <option>о болезни</option>
+                        <option>об успеваемости</option>
+                        <option>по месту требования</option>
+                        <option>о пенсионном фонде</option>
+                        <option>о движениях студента</option>
+                        <option>о приглашении иностранному студенту</option>
                     </select></div>
+            </div>
+            <div class="row mb-5">
+                <label class="col-lg-3  ">UID зачетки</label>
+                <input class="form-control" name="UID" type="text"></input></div>
+            </div>
+            <div class="row mb-5">
+                <label class="col-lg-3  ">UID Физ. лица</label>
+                <input class="form-control" name="UIDPhis" type="text"></input></div>
+            </div>
             </div>
             <div class="center">
                 <button class="btn btn-primary">Отправить заявку</button>
