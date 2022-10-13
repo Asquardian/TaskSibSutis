@@ -26,6 +26,8 @@ h1 {
                 $arrayState[1] = $_POST["group"];
                 $arrayState[2] = $_POST["amount"];
                 $arrayState[3] = $_POST["kindOf"];
+                $arrayState[4] = $_POST["UID"];
+                $arrayState[5] = $_POST["UIDPhis"];
                 foreach($arrayState as $elem){
                     if ($elem == ""){
                         throw new Exception("0"); ##Обработка ошибок
@@ -33,6 +35,13 @@ h1 {
                 }
                 if($arrayState[2] > 5 || $arrayState[2] < 1){
                     throw new Exception("1");
+                }
+                if (substr_count($arrayState[0], " ") < 2){
+                    throw new Exception("2");
+                }
+                ;
+                if(strpos($arrayState[1], "-") && strlen($arrayState[1]) < 6){
+                    throw new Exception("3");
                 }
                 require_once('DBconnection/connect.php');
                 requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3]);

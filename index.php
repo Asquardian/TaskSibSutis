@@ -12,7 +12,7 @@
     <div class="border border-info container divBorder"
         style="width: 50%;margin-top:2%; padding-left: 10%; padding-right: 10%;">
         <div class="error center">
-        <img src="/TaskSibSutis/img/sibs.jpg" class="sibsutisLogo">
+            <img src="/TaskSibSutis/img/sibs.jpg" class="sibsutisLogo">
             <?php 
             if(isset($_GET['Error'])){
                 $temp = $_GET['Error'];
@@ -22,6 +22,12 @@
                         break;
                     case 1:
                         echo '<p class="Error">Ошибка! Неверные данные о количестве!</p>';
+                        break;
+                    case 2:
+                        echo '<p class="Error">Ошибка! Введите Имя и фамилию</p>';
+                        break;
+                    case 3:
+                        echo '<p class="Error">Ошибка! Введите группу по примеру ИП-917</p>';
                         break;
                 }
             }
@@ -52,17 +58,19 @@
             </div>
             <div class="row mb-5">
                 <label class="col-lg-3  ">UID зачетки</label>
-                <input class="form-control" name="UID" type="text"></input></div>
+                <div class="col-lg-9"><input class="form-control" name="UID" type="text"></input></div>
             </div>
             <div class="row mb-5">
                 <label class="col-lg-3  ">UID Физ. лица</label>
-                <input class="form-control" name="UIDPhis" type="text"></input></div>
+                <div class="col-lg-9"><input class="form-control" name="UIDPhis" type="text"></input></div>
             </div>
-            </div>
-            <div class="center">
-                <button class="btn btn-primary">Отправить заявку</button>
-            </div>
-        </form>
+    </div>
+    </div>
+    </div>
+    <div class="center">
+        <button class="btn btn-primary btnMargin">Отправить заявку</button>
+    </div>
+    </form>
 
     </div>
 </body>
