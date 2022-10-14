@@ -23,9 +23,11 @@ function connectToDataBase()
         $result = mysqli_query($link, $sql);
     } catch (Exception $e) {
 
-        $sql = "CREATE TABLE requests  (`fullName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+        $sql = "CREATE TABLE requests  (
+                    `id` BINARY(16) PRIMARY KEY,
+                    `fullName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
                     `groupName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-                    `amount` INT NOT NULL , `kindOf` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ) 
+                    `amount` INT NOT NULL , `kindOf` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, `status`  BIT NOT NULL) 
                     ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_bin;";
         mysqli_query($link, $sql);
         return $link;
@@ -43,12 +45,47 @@ function requestToDataBase($fullName, $group, $amount, $kindOf)
     $group = filter_var($group, FILTER_SANITIZE_STRING);
     $amount = filter_var($amount, FILTER_SANITIZE_STRING);
     $kindOf = filter_var($kindOf, FILTER_SANITIZE_STRING);
-    $sql = "INSERT INTO requests (fullName, groupName, amount, kindOf)"
-        . "VALUES ('$fullName', '$group', '$amount', '$kindOf')";
+    $sql = "INSERT INTO requests (id, fullName, groupName, amount, kindOf, status)"
+        . "VALUES (UUID(), '$fullName', '$group', '$amount', '$kindOf', 0)";
 
     mysqli_set_charset($link, 'utf8');
     mysqli_query($link, $sql);
     mysqli_close($link);
 }
 
+function getFromDataBase($link, $sortBy, $sort="DESC"){
+    $order = "";
+    if($sortBy != ""){
+        $order = " ORDER BY ".$sortBy. " ".$sort;
+    }
+    $query = 'SELECT * FROM requests'. $order;
+    try{
+        $result = mysqli_query($link, $query);
+        if(!$result){
+            echo 'Неверный запрос: ' . mysql_error();
+            throw new Exception("\nВойдите позже");
+        }
+        return $result;
+    }
+    catch(Exception $e){
+        echo $e->getMessage();
+    }
+}
 
+function changeStatus($link, $id, $status){
+    $change = "UPDATE requests SET status = $status WHERE id = '$id'";
+    if ($link->query($change) === TRUE) {
+        
+      } else {
+        echo "Произошла ошибка: " . $conn->error;
+      }
+}
+
+function deleteSQL($link, $id){
+    $change = "DELETE FROM requests WHERE id = '$id'";
+    if ($link->query($change) === TRUE) {
+        
+    } else {
+      echo "Произошла ошибка: " . $conn->error;
+    }
+}
