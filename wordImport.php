@@ -1,7 +1,9 @@
 <?php
     require 'vendor/autoload.php';
     session_start();
-
+    if(!isset($_SESSION["nameOfStudent"])){
+        header("Location: http://localhost/TaskSibSutis/login.php");
+    }
     if(isset($_SESSION["array"])){
         $arrayState = $_SESSION["array"];
         wordImport($arrayState);
