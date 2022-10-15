@@ -9,6 +9,11 @@
             header("Location: http://localhost/TaskSibSutis/index.php?Error=" . $error);
             exit();
         } 
+
+        session_start();
+        if(!isset($_SESSION["nameOfStudent"])){
+            header("Location: http://localhost/TaskSibSutis/login.php");
+        }
         ?>
 <style>
 p,
@@ -18,16 +23,18 @@ h1 {
 </style>
 
 <body>
+    <div><?php 
+                require('personal.php');
+                personalCab();
+                ?></div>
     <?php 
         try {
-            if(isset($_POST["nameOfStudent"]) && isset($_POST["group"]) &&
+            if(isset($_SESSION["nameOfStudent"]) && isset($_SESSION["group"]) &&
              isset($_POST["amount"])){
-                $arrayState[0] = $_POST["nameOfStudent"];
-                $arrayState[1] = $_POST["group"];
+                $arrayState[0] = $_SESSION["nameOfStudent"];
+                $arrayState[1] = $_SESSION["group"];
                 $arrayState[2] = $_POST["amount"];
                 $arrayState[3] = $_POST["kindOf"];
-                $arrayState[4] = $_POST["UID"];
-                $arrayState[5] = $_POST["UIDPhis"];
                 foreach($arrayState as $elem){
                     if ($elem == ""){
                         throw new Exception("0"); ##Обработка ошибок
@@ -36,17 +43,9 @@ h1 {
                 if($arrayState[2] > 5 || $arrayState[2] < 1){
                     throw new Exception("1");
                 }
-                if (substr_count($arrayState[0], " ") < 2){
-                    throw new Exception("2");
-                }
-                ;
-                if(strpos($arrayState[1], "-") && strlen($arrayState[1]) < 6){
-                    throw new Exception("3");
-                }
                 require_once('DBconnection/connect.php');
-                requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3], $arrayState[4],
-                                    $arrayState[5]);
-                session_start();
+                requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3]);
+
                 $_SESSION["array"] = $arrayState;
             }
             else

@@ -12,7 +12,8 @@
         if(isset($_POST['decline'])) { 
             changeStatus($link, $_POST['decline'], 0);
         } 
-        if(isset($_POST['delete'])) { 
+        if(isset($_POST['delete'])) {
+            echo 1;
             deleteSQL($link, $_POST['delete']);
         } 
         if(isset($_GET['like'])){
@@ -47,7 +48,7 @@
             if($row["status"] == 0)
                 printf ("<td scope='row'><button name='accept' type='sumbit' value='%s' class='btn btn-primary'>Принять</button></td>", $row["id"]);
             else
-            printf ("<td scope='row'><button name='decline' type='sumbit' value='%s' class='btn btn-danger'>Отклонить</button></td>", $row["id"]);
+                printf ("<td scope='row'><button name='decline' type='sumbit' value='%s' class='btn btn-danger'>Отклонить</button></td>", $row["id"]);
             printf ("<td scope='row'><button name='delete' type='sumbit' value='%s' class='btn btn-danger'>Удалить</button></td>", $row["id"]);
             echo "</tr>";
         }
