@@ -25,7 +25,10 @@ function connectToDataBase()
 
         $sql = "CREATE TABLE requests  (`fullName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
                     `groupName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-                    `amount` INT NOT NULL , `kindOf` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ) 
+                    `amount` INT NOT NULL , `kindOf` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+                     `UIDBook` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+                     `UIDPerson` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+                     `Canceled` BOOL NOT NULL DEFAULT 0) 
                     ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_bin;";
         mysqli_query($link, $sql);
         return $link;
@@ -33,7 +36,7 @@ function connectToDataBase()
     return $link;
 }
 
-function requestToDataBase($fullName, $group, $amount, $kindOf)
+function requestToDataBase($fullName, $group, $amount, $kindOf, $UIDBook, $UIDPerson)
 {
     $link = connectToDataBase();
     if (!$link) {
@@ -43,8 +46,8 @@ function requestToDataBase($fullName, $group, $amount, $kindOf)
     $group = filter_var($group, FILTER_SANITIZE_STRING);
     $amount = filter_var($amount, FILTER_SANITIZE_STRING);
     $kindOf = filter_var($kindOf, FILTER_SANITIZE_STRING);
-    $sql = "INSERT INTO requests (fullName, groupName, amount, kindOf)"
-        . "VALUES ('$fullName', '$group', '$amount', '$kindOf')";
+    $sql = "INSERT INTO requests (fullName, groupName, amount, kindOf, UIDBook, UIDPerson)"
+        . "VALUES ('$fullName', '$group', '$amount', '$kindOf', '$UIDBook', '$UIDPerson')";
 
     mysqli_set_charset($link, 'utf8');
     mysqli_query($link, $sql);

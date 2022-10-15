@@ -44,7 +44,8 @@ h1 {
                     throw new Exception("3");
                 }
                 require_once('DBconnection/connect.php');
-                requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3]);
+                requestToDataBase($arrayState[0], $arrayState[1], $arrayState[2],  $arrayState[3], $arrayState[4],
+                                    $arrayState[5]);
                 session_start();
                 $_SESSION["array"] = $arrayState;
             }
