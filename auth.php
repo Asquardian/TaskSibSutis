@@ -14,7 +14,7 @@
         $arrayState["UID"] = $_POST["UID"];
         $arrayState["UIDPhis"] = $_POST["UIDPhis"];
         $arrayState["login"] = $_POST["login"];
-        $arrayState["password"] = md5($_POST["password"]);
+        $arrayState["password"] = password_hash($_POST["password"], PASSWORD_BCRYPT, ['cos' => 10]);
         if (substr_count($arrayState["nameOfStudent"], " ") < 2){ 
             throw new Exception("Введите имя и фамилию"); 
             } 

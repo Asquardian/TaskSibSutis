@@ -147,13 +147,18 @@ function newUserToDataBase($arrayState){
 function loginSQL($login, $password){
     $link = connectToDataBase();
     try{
-        $result = $link->query("SELECT * FROM users WHERE login = '$login' AND password = '$password'");
+        $result = $link->query("SELECT * FROM users WHERE login = '$login'");
         if(!$result){
-            echo 'Неверный запрос: ' . mysql_error();
+            echo 'Неверный запрос: ' . mysqli_error($link);
+            throw new Exception("\nНеверный логин или пароль");
+        }
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if (!password_verify($password, $row['password'])){
+            echo 'Неверный запрос: ' . mysqli_error($link);
             throw new Exception("\nНеверный логин или пароль");
         }
         mysqli_close($link);
-        return $result;
+        return $row;
     }
     catch(Exception $e){
         

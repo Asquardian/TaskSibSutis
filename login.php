@@ -30,8 +30,7 @@ require('DBconnection/connect.php');
             
             if(isset($_POST["login"]) && isset($_POST["password"])){
                 try{
-                    $isLogined = loginSQL($_POST["login"], md5($_POST["password"]));
-                    $row = $isLogined->fetch_array(MYSQLI_ASSOC);
+                    $row = loginSQL($_POST["login"], $_POST["password"]);
                     if(empty($row)){
                         throw new Exception("Ошибка 1");
                     }
