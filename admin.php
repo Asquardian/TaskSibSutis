@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require('DBconnection/connect.php');
     $sortGroup = "DESC";
     try{
@@ -20,10 +21,10 @@
             $sortGroup = $_GET['like'];
         }
         if(isset($_GET['sort'])){
-            $db = getFromDataBase($link, $_GET['sort'], $sortGroup);
+            $db = getFromDataBase($link, "",  $_GET['sort'], $sortGroup);
         } 
         else
-            $db = getFromDataBase($link, "");
+            $db = getFromDataBase($link, "", "");
             
     }
     catch(Exception $e){

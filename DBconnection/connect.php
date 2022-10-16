@@ -74,12 +74,16 @@ function requestToDataBase($fullName, $group, $amount, $kindOf)
     mysqli_close($link);
 }
 
-function getFromDataBase($link, $sortBy, $sort="DESC"){
+function getFromDataBase($link, $where, $sortBy, $sort="DESC"){
     $order = "";
     if($sortBy != ""){
         $order = " ORDER BY ".$sortBy. " ".$sort;
     }
-    $query = 'SELECT * FROM requests'. $order;
+    $whereOption = "";
+    if($where != ""){
+        $whereOption = "WHERE " . $where;
+    }
+    $query = 'SELECT * FROM requests '. $whereOption . ' ' . $order;
     try{
         $result = mysqli_query($link, $query);
         if(!$result){
