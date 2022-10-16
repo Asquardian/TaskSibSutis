@@ -141,7 +141,11 @@ function newUserToDataBase($arrayState){
 
     mysqli_set_charset($link, 'utf8');
     mysqli_query($link, $sql);
+    $sql = "SELECT id FROM users WHERE `login` = '$login'";
+    $result = mysqli_query($link, $sql);
+    $row = $result->fetch_array(MYSQLI_ASSOC);
     mysqli_close($link);
+    return $row["id"];
 }
 
 function loginSQL($login, $password){

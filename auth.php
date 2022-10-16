@@ -22,10 +22,13 @@
             throw new Exception("Неверное имя группы"); 
             }
             require_once('DBconnection/connect.php');
-            newUserToDataBase($arrayState);
+            $id = newUserToDataBase($arrayState);
             session_start();
             $_SESSION["nameOfStudent"] =  $arrayState["nameOfStudent"];
             $_SESSION["group"] =  $arrayState["group"];
+            $_SESSION["admin"] = 0;
+            $_SESSION["id"] =  $id;
+            
             header("Location: http://localhost/TaskSibSutis/index.php");
                  
         } catch(Exception $e){ 
@@ -33,7 +36,8 @@
         } 
     }
 
-?>   
+?>
+
 <head>
     <link href="/TaskSibSutis/css/style.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -43,12 +47,14 @@
 </head>
 
 <body>
-    <form action="login.php"><button action="login.php" type='sumbit' class='btn btn-primary btnAuth'>Войти</button></form>
-    
+    <form action="login.php"><button action="login.php" type='sumbit' class='btn btn-primary btnAuth'>Войти</button>
+    </form>
+
     <div class="border border-info container divBorder"
         style="width: 50%;margin-top:2%; padding-left: 10%; padding-right: 10%;">
         <div class="error center">
-            <img src="/TaskSibSutis/img/sibs.jpg" class="sibsutisLogo"><p class="Error"><?php 
+            <img src="/TaskSibSutis/img/sibs.jpg" class="sibsutisLogo">
+            <p class="Error"><?php 
             if($_POST){
                 auth();
             }
