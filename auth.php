@@ -2,6 +2,9 @@
 <?php
     if(session_status() == 2){
         unset($_SESSION["nameOfStudent"]);
+        unset($_SESSION["group"]);
+        unset($_SESSION["id"]);
+        unset($_SESSION["admin"]);
         session_destroy();
     }
     function auth(){
