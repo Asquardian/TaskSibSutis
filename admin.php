@@ -1,5 +1,13 @@
 <?php
     session_start();
+    if(!isset($_SESSION["nameOfStudent"])){
+        header("Location: http://localhost/TaskSibSutis/login.php");
+    }
+    if (isset($_SESSION["admin"])){
+        if ($_SESSION["admin"] == 0){
+            header('Location: index.php');
+        }
+    }
     require('DBconnection/connect.php');
     $sortGroup = "DESC";
     try{
@@ -71,6 +79,10 @@
 </head>
 
 <body>
+    <div><?php
+        require('personal.php');
+        personalCab();
+        ?></div>
     <div class="border border-info container divBorder">
         <form action="" method="POST">
             <table class="table">

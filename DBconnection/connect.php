@@ -48,7 +48,8 @@ function connectToDataBase()
                                 `UID` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
                                 `UIDPhis` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
                                 `login` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-                                `password` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, UNIQUE(`login`) ) 
+                                `password` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, UNIQUE(`login`),
+                                `admin` BIT NOT NULL DEFAULT 0 ) 
                                 ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_bin;";
         mysqli_query($link, $sql);
 

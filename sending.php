@@ -14,6 +14,11 @@
         if(!isset($_SESSION["nameOfStudent"])){
             header("Location: http://localhost/TaskSibSutis/login.php");
         }
+        if (isset($_SESSION["admin"])){
+            if ($_SESSION["admin"] == 1){
+                header('Location: admin.php');
+            }
+        }
         ?>
 <style>
 p,

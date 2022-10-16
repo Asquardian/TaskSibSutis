@@ -39,6 +39,7 @@ require('DBconnection/connect.php');
                     $_SESSION["nameOfStudent"] = $row["fullName"];
                     $_SESSION["group"] = $row["groupName"];
                     $_SESSION["id"] = $row["id"];
+                    $_SESSION["admin"] = $row['admin'];
                     header("Location: http://localhost/TaskSibSutis/index.php");
                 }
                 catch(Exception $e){

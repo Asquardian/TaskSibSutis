@@ -1,5 +1,13 @@
 <?php
     session_start();
+    if (isset($_SESSION["admin"])){
+        if ($_SESSION["admin"] == 1){
+            header('Location: admin.php');
+        }
+    }
+    if(!isset($_SESSION["nameOfStudent"])){
+        header("Location: http://localhost/TaskSibSutis/login.php");
+    }
     require('DBconnection/connect.php');
     $sortGroup = "DESC";
     try{
