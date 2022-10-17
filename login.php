@@ -74,9 +74,5 @@
 <div class="center">
     <button class="btn btn-primary btnMargin">Войти</button>
 </div>
-</form>
-
-</div>
 </body>
-
 </html>

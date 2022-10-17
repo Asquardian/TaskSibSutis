@@ -30,17 +30,16 @@ function connectToDataBase() //Попытка присоединения к ба
                     `amount` INT NOT NULL , `kindOf` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, `status`  BIT NOT NULL) 
                     ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_bin;";
 
-        
+
         mysqli_query($link, $sql);
     }
-    
+
 
     //UserAuth
     $sql = "SELECT fullName FROM users";
-    try{
+    try {
         $result = mysqli_query($link, $sql);
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
         $sql = "CREATE TABLE users  (
                                 `id` BINARY(16) PRIMARY KEY,
                                 `fullName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
@@ -75,47 +74,51 @@ function requestToDataBase($fullName, $group, $amount, $kindOf) //Записыв
     mysqli_close($link);
 }
 
-function getFromDataBase($link, $where, $sortBy, $sort="DESC"){ //Получаем из базы данных пользователей
+
+function getFromDataBase($link, $where, $sortBy, $sort = "DESC"){ //Получаем из базы данных пользователей
     $order = "";
     if($sortBy != ""){//Если есть запрос
         $order = " ORDER BY ".$sortBy. " ".$sort;
     }
     $whereOption = "";
-    if($where != ""){
+    if ($where != "") {
         $whereOption = "WHERE " . $where;
     }
-    $query = 'SELECT * FROM requests '. $whereOption . ' ' . $order;
-    try{
+    $query = 'SELECT * FROM requests ' . $whereOption . ' ' . $order;
+    try {
         $result = mysqli_query($link, $query);
-        if(!$result){
+        if (!$result) {
             echo 'Неверный запрос: ' . mysql_error();
             throw new Exception("\nВойдите позже");
         }
         return $result;
-    }
-    catch(Exception $e){
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-function changeStatus($link, $id, $status){
+function changeStatus($link, $id, $status)
+{
     $change = "UPDATE requests SET status = $status WHERE id = '$id'";
     if ($link->query($change) === TRUE) {
-        
-      } else {
-        echo "Произошла ошибка: " . $conn->error;
-      }
-}
 
-function deleteSQL($link, $id){
-    $change = "DELETE FROM requests WHERE id = '$id'";
-    if ($link->query($change) == TRUE) {
-        
     } else {
-      echo "Произошла ошибка: " . $conn->error;
+        echo "Произошла ошибка: " . $conn->error;
     }
 }
-function deleteSQLByUser($link, $id){
+
+function deleteSQL($link, $id)
+{
+    $change = "DELETE FROM requests WHERE id = '$id'";
+    if ($link->query($change) == TRUE) {
+
+    } else {
+        echo "Произошла ошибка: " . $conn->error;
+    }
+}
+
+function deleteSQLByUser($link, $id)
+{
     $change = "DELETE FROM requests WHERE id = '$id' AND status = '0'";
     if ($link->query($change) == TRUE) {
 
@@ -124,8 +127,8 @@ function deleteSQLByUser($link, $id){
     }
 }
 
-
-function newUserToDataBase($arrayState){ //Новый пользователь
+function newUserToDataBase($arrayState)
+{ //Новый пользователь
     $link = connectToDataBase();
     if (!$link) {
         return 1;
@@ -148,23 +151,24 @@ function newUserToDataBase($arrayState){ //Новый пользователь
     return $row["id"]; //возвращаем id пользователя для сессии
 }
 
-function loginSQL($login, $password){
+function loginSQL($login, $password)
+{
     $link = connectToDataBase();
     try{
         $result = $link->query("SELECT * FROM users WHERE login = '$login'"); //получаем пароль
         if(!$result){
+
             echo 'Неверный запрос: ' . mysqli_error($link);
             throw new Exception("\nНеверный логин или пароль");
         }
         $row = $result->fetch_array(MYSQLI_ASSOC);
-        if (!password_verify($password, $row['password'])){
+        if (!password_verify($password, $row['password'])) {
             echo 'Неверный запрос: ' . mysqli_error($link);
             throw new Exception("\nНеверный логин или пароль");
         }
         mysqli_close($link);
         return $row;
-    }
-    catch(Exception $e){
-        
+    } catch (Exception $e) {
+
     }
 }
