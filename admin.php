@@ -27,10 +27,7 @@ try {
     if (isset($_GET['like'])) {
         $sortGroup = $_GET['like'];
     }
-    if (isset($_GET['sort'])) {
-        $db = getFromDataBase($link, "", $_GET['sort'], $sortGroup);
-    } else
-        $db = getFromDataBase($link, "", "");
+    $db = getFromDataBase($link, "");
 
 } catch (Exception $e) {
     echo $e->getMessage();

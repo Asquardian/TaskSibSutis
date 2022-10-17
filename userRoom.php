@@ -18,23 +18,12 @@ try {
     if (isset($_POST['delete'])) {
         deleteSQLByUser($link, $_POST['delete']);
     }
-    $whereOption = "fullName = " . '"' . $_SESSION["nameOfStudent"] . '"';
-    if (isset($_GET['sort'])) {
-        $db = getFromDataBase($link, $whereOption, $_GET['sort'], $sortGroup);
-    } else
-        $db = getFromDataBase($link, $whereOption, "");
+    $whereOption = "fullName = " . '"' . $_SESSION["nameOfStudent"] . '"' . "AND groupName = " . '"' . $_SESSION["group"] . '"';
+    
+    $db = getFromDataBase($link, $whereOption, "");
 
 } catch (Exception $e) {
     echo $e->getMessage();
-}
-
-function sorted($name)
-{
-    if (isset($_GET['sort']) && isset($_GET['like'])) {
-        if ($_GET['sort'] == $name && $_GET['like'] == "DESC")
-            return "ASC";
-    }
-    return "DESC";
 }
 
 function printRecords($db)
@@ -60,36 +49,37 @@ function printRecords($db)
 <head>
     <link href="/TaskSibSutis/css/style.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.6.0.js">
     </script>
 </head>
 
 <body>
-<div><?php
+    <div><?php
     require('personal.php');
     personalOut();
     ?></div>
-<div class="border border-info container divBorder">
-    <form action="" method="POST">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col"><a href="userRoom.php?sort=amount&like=<?php echo sorted("amount") ?>">Количество</a></th>
-                <th scope="col"><a href="userRoom.php?sort=kindOf&like=<?php echo sorted("kindOf") ?>">Справка</a></th>
-                <th scope="col"><a href="userRoom.php?sort=status&like=<?php echo sorted("status") ?>">Статус</a></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php printRecords($db); ?>
-            </tbody>
-        </table>
-    </form>
+    <div class="border border-info container divBorder">
+        <form action="" method="POST">
+            <table class="table" id="userRequestsTable">
+                <thead>
+                    <tr>
+                        <th scope="col" onclick="sortTable(0)">Количество</th>
+                        <th scope="col" onclick="sortTable(1)">Справка</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php printRecords($db); ?>
+                </tbody>
+            </table>
+        </form>
 
-</div>
+    </div>
+    <script type="text/javascript" src="js/js.js"></script>
 
 </body>
 

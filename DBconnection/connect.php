@@ -75,7 +75,7 @@ function requestToDataBase($fullName, $group, $amount, $kindOf) //Записыв
 }
 
 
-function getFromDataBase($link, $where, $sortBy, $sort = "DESC"){ //Получаем из базы данных пользователей
+function getFromDataBase($link, $where = "", $sortBy = "", $sort = "DESC"){ //Получаем из базы данных пользователей
     $order = "";
     if($sortBy != ""){//Если есть запрос
         $order = " ORDER BY ".$sortBy. " ".$sort;
@@ -95,6 +95,7 @@ function getFromDataBase($link, $where, $sortBy, $sort = "DESC"){ //Получа
     } catch (Exception $e) {
         echo $e->getMessage();
     }
+    return $query;
 }
 
 function changeStatus($link, $id, $status)
