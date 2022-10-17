@@ -151,7 +151,7 @@ function newUserToDataBase($arrayState){ //Новый пользователь
 function loginSQL($login, $password){
     $link = connectToDataBase();
     try{
-        $result = $link->query("SELECT password FROM users WHERE login = '$login'"); //получаем пароль
+        $result = $link->query("SELECT * FROM users WHERE login = '$login'"); //получаем пароль
         if(!$result){
             echo 'Неверный запрос: ' . mysqli_error($link);
             throw new Exception("\nНеверный логин или пароль");
