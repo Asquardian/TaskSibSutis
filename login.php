@@ -32,7 +32,7 @@ require('DBconnection/connect.php');
                 try{
                     $row = loginSQL($_POST["login"], $_POST["password"]);
                     if(empty($row)){
-                        throw new Exception("Ошибка 1");
+                        throw new Exception("Ошибка не удалось получить доступ к аккаунту, введен неверный логин");
                     }
                     session_start();
                     $_SESSION["nameOfStudent"] = $row["fullName"];

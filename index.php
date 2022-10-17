@@ -1,7 +1,7 @@
 <html>
 <?php
     function Error($error){
-        header("Location: http://localhost/TaskSibSutis/auth.php?Error=" . $error);
+        header("Location: http://localhost/TaskSibSutis/auth.php?Error=" . $error); ##сообщение об ошибке при регистрации
         exit();
     }
 
@@ -9,11 +9,6 @@
     session_start();
     if(!isset($_SESSION["nameOfStudent"])){
         header("Location: http://localhost/TaskSibSutis/login.php");
-    }
-    if (isset($_SESSION["admin"])){
-        if ($_SESSION["admin"] == 1){
-            header('Location: admin.php');
-        }
     }
     ?>
 
@@ -67,7 +62,7 @@
             </div>
     </div>
     <div class="center">
-        <button class="btn btn-primary btnMargin">Зарегистрироваться</button>
+        <button class="btn btn-primary btnMargin">Отправить заявку</button>
     </div>
     </form>
 

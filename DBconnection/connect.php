@@ -1,14 +1,14 @@
 <?php
 
-function connectToDataBase()
+function connectToDataBase() //Попытка присоединения к базе данных 
 {
     $link = mysqli_connect("localhost", "root", "");
-    if ($link == false) {
+    if (!$link) { //Не удалось подключиться
         print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
         return $link;
     }
     try {
-        $db_selected = mysqli_select_db($link, 'studentsRequests');
+        $db_selected = mysqli_select_db($link, 'studentsRequests'); //SELECT FROM
     } catch (Exception $e) {
         $sql = 'CREATE DATABASE studentsRequests';
 
@@ -22,8 +22,8 @@ function connectToDataBase()
     try {
         $result = mysqli_query($link, $sql);
     } catch (Exception $e) {
-
-        $sql = "CREATE TABLE requests  (
+        //Если нет таблицы
+        $sql = "CREATE TABLE requests  ( 
                     `id` BINARY(16) PRIMARY KEY,
                     `fullName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
                     `groupName` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
@@ -57,7 +57,7 @@ function connectToDataBase()
     return $link;
 }
 
-function requestToDataBase($fullName, $group, $amount, $kindOf)
+function requestToDataBase($fullName, $group, $amount, $kindOf) //Записываем заявку пользователя
 {
     $link = connectToDataBase();
     if (!$link) {
@@ -75,9 +75,9 @@ function requestToDataBase($fullName, $group, $amount, $kindOf)
     mysqli_close($link);
 }
 
-function getFromDataBase($link, $where, $sortBy, $sort="DESC"){
+function getFromDataBase($link, $where, $sortBy, $sort="DESC"){ //Получаем из базы данных пользователей
     $order = "";
-    if($sortBy != ""){
+    if($sortBy != ""){//Если есть запрос
         $order = " ORDER BY ".$sortBy. " ".$sort;
     }
     $whereOption = "";
@@ -125,7 +125,7 @@ function deleteSQLByUser($link, $id){
 }
 
 
-function newUserToDataBase($arrayState){
+function newUserToDataBase($arrayState){ //Новый пользователь
     $link = connectToDataBase();
     if (!$link) {
         return 1;
@@ -138,20 +138,20 @@ function newUserToDataBase($arrayState){
     $password = filter_var($arrayState["password"], FILTER_SANITIZE_STRING);
     $sql = "INSERT INTO users (id, fullName, groupName, `UID`, `UIDPhis`, `login`, `password`)"
         . "VALUES (UUID(), '$nameOfStudent', '$group', '$UID', '$UIDPhis', '$login', '$password')";
-
+    
     mysqli_set_charset($link, 'utf8');
     mysqli_query($link, $sql);
     $sql = "SELECT id FROM users WHERE `login` = '$login'";
     $result = mysqli_query($link, $sql);
     $row = $result->fetch_array(MYSQLI_ASSOC);
     mysqli_close($link);
-    return $row["id"];
+    return $row["id"]; //возвращаем id пользователя для сессии
 }
 
 function loginSQL($login, $password){
     $link = connectToDataBase();
     try{
-        $result = $link->query("SELECT * FROM users WHERE login = '$login'");
+        $result = $link->query("SELECT password FROM users WHERE login = '$login'"); //получаем пароль
         if(!$result){
             echo 'Неверный запрос: ' . mysqli_error($link);
             throw new Exception("\nНеверный логин или пароль");
