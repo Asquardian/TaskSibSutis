@@ -11,3 +11,42 @@ function filterTable() {
         }
     }
 }
+
+function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("userRequestsTable");
+    switching = true;
+    // Узнаем в какую сторону сортировать
+    dir = "asc";
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      /* Начинаем сортировать с 1, потому что 1 это хэдер */
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true; //меняем элементы местами
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount ++;
+      } else {
+        if (switchcount == 0 && dir == "asc") { //меняем порядок сортировки для повторного клика
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
