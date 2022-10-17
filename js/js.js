@@ -13,40 +13,43 @@ function filterTable() {
 }
 
 function sortTable(n) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    var table, rows, x, y, dir, switchcount = false;
     table = document.getElementById("userRequestsTable");
     switching = true;
     // Узнаем в какую сторону сортировать
     dir = "asc";
-    while (switching) {
-      switching = false;
-      rows = table.rows;
+    rows = table.rows;
+    for (let j = 1; j < (rows.length); j++) {
+      minMax = j;
+      x = rows[j].getElementsByTagName("TD")[n];
       /* Начинаем сортировать с 1, потому что 1 это хэдер */
-      for (i = 1; i < (rows.length - 1); i++) {
-        shouldSwitch = false;
-        x = rows[i].getElementsByTagName("TD")[n];
-        y = rows[i + 1].getElementsByTagName("TD")[n];
+      for (let i = j; i < (rows.length); i++) {
+        y = rows[i].getElementsByTagName("TD")[n];
+
         if (dir == "asc") {
           if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            shouldSwitch = true; //меняем элементы местами
-            break;
+            minMax = i; //меняем элементы местами
+            x = y;
+            switchcount = true;
           }
         } else if (dir == "desc") {
           if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-            shouldSwitch = true;
-            break;
+            minMax = i; //меняем элементы местами
+            x = y;
+            switchcount = true;
           }
         }
       }
-      if (shouldSwitch) {
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-        switchcount ++;
-      } else {
-        if (switchcount == 0 && dir == "asc") { //меняем порядок сортировки для повторного клика
+      if(switchcount){
+        rows[j].parentNode.insertBefore(rows[minMax], rows[j]);
+      }else{
+        if (!switchcount && dir == "asc") { //меняем порядок сортировки для повторного клика
           dir = "desc";
-          switching = true;
         }
+        else { //меняем порядок сортировки для повторного клика
+          dir = "asc";
+        }
+        j = 0;
       }
     }
   }
