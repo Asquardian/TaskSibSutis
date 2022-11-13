@@ -9,11 +9,11 @@ function Error($error)
 }
 
 
-session_start();
+session_start(); ##начинаем сессию
 if (!isset($_SESSION["nameOfStudent"])) {
     header("Location: http://localhost/TaskSibSutis/login.php");
 }
-if (isset($_SESSION["admin"])) {
+if (isset($_SESSION["admin"])) { ##Переход для админа
     if ($_SESSION["admin"] == 1) {
         header('Location: admin.php');
     }
